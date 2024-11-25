@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import { API_BASE_URL } from "../../config";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -10,13 +10,6 @@ function Register() {
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const selectedRole = localStorage.getItem("selectedRole");
-
-  useEffect(() => {
-    if (selectedRole !== "user") {
-      navigate("/");
-    }
-  }, [selectedRole, navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -27,20 +20,42 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
+    const registerData = {
+      email: formData.email,
+      password: formData.password,
+      role: "user",
+    };
+
+    console.log("Attempting registration with:", registerData);
+
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, {
-        email: formData.email,
-        password: formData.password,
-        role: "user",
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registerData),
       });
-      navigate("/login");
+
+      console.log("Response status:", response.status);
+      const data = await response.json();
+      console.log("Response data:", data);
+
+      if (response.ok) {
+        navigate("/login");
+      } else {
+        setError(data.message || "Registration failed. Please try again.");
+      }
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed");
+      console.error("Registration error details:", err);
+      setError("Network error. Please try again.");
     }
   };
 
