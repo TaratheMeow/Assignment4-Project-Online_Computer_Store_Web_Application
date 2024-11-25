@@ -47,4 +47,31 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// 注册路由
+router.post("/register", async (req, res) => {
+  try {
+    const { email, password, role } = req.body;
+
+    // 检查邮箱是否已存在
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
+    // 创建新用户
+    const user = new User({
+      email,
+      password: await bcrypt.hash(password, 10),
+      role: role || "user",
+    });
+
+    await user.save();
+
+    res.status(201).json({ message: "User registered successfully" });
+  } catch (error) {
+    console.error("Registration error:", error);
+    res.status(500).json({ message: "Server error during registration" });
+  }
+});
+
 module.exports = router;
