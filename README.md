@@ -69,7 +69,7 @@ cd frontend
 npm install
 
 # Install additional dependencies
-npm install react-router-dom axios
+npm install react-router-dom
 ```
 
 ### 4. Start the Application
@@ -78,7 +78,7 @@ Start the backend server:
 
 ```bash
 cd backend
-npm install react-router-dom axios @material-ui/core @material-ui/icons
+npm install react-router-dom @material-ui/core @material-ui/icons
 npm start
 ```
 
