@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
@@ -26,6 +27,9 @@ mongoose
 
 // API 路由
 app.use("/api/auth", require("./routes/auth")); // 确保路径正确
+
+// 提供静态文件服务
+app.use("/source/img", express.static(path.join(__dirname, "source/img")));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
