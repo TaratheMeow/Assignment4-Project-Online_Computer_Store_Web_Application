@@ -27,8 +27,8 @@ mongoose
 
 // API 路由
 app.use("/api/auth", require("./routes/auth")); // 确保路径正确
-
-// 提供静态文件服务
+app.use("/api/products", require("./routes/products"));
+app.use("/api", require("./routes/stripe"));
 app.use("/source/img", express.static(path.join(__dirname, "source/img")));
 
 const PORT = process.env.PORT || 5000;

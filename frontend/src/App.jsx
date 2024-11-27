@@ -9,7 +9,7 @@ import { AuthProvider } from "./context/AuthContext";
 import RoleSelect from "./components/RoleSelect";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/dashboard/Dashboard"; // 注意路径
 import AdminDashboard from "./components/admin/AdminDashboard";
 import PrivateRoute from "./components/auth/PrivateRoute";
 

@@ -1,0 +1,460 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  scroll-padding-top: 2rem;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+/* Some variables */
+:root {
+  --main-color: #fd4646;
+  --text-color: #02ac70;
+  --bg-color: #fff;
+  --container-color: #1e1e2a;
+}
+
+img {
+  width: 100%;
+}
+
+body {
+  color: var(--bg-color);
+  background: var(--container-color);
+}
+
+section {
+  padding: 4rem 0 3rem;
+}
+
+.container {
+  max-width: 1068px;
+  margin: auto;
+  width: 100%;
+}
+
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--container-color);
+  box-shadow: 0 1px 4px hsla(0, 0%, 98%, 0.1);
+  z-index: 100;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.logo {
+  font-size: 1.1rem;
+  color: var(--bg-color);
+  font-weight: 600;
+}
+
+#cart-icon {
+  position: relative;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+#cart-icon[data-quantity="0"]::after {
+  content: "";
+}
+
+#cart-icon[data-quantity]::after {
+  content: attr(data-quantity);
+  position: absolute;
+  top: 0;
+  right: -12px;
+  width: 20px;
+  height: 20px;
+  background: var(--text-color);
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Cart */
+.cart {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 360px;
+  height: 100vh;
+  padding: 20px;
+  background: var(--container-color);
+  box-shadow: -2px 0 4px hsl(0, 4%, 15% / 10%);
+  transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.cart.active {
+  right: 0;
+  transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.cart-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+
+/* Scrollable cart content */
+.cart-content {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 1rem;
+  padding-bottom: 120px; /* Ensure the content does not overlap the summary */
+}
+
+/* Cart summary (sticky) */
+.cart-summary {
+  position: sticky;
+  bottom: 0;
+  background: var(--container-color);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-top: 1px solid var(--text-color);
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.summary-item.total {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 1rem;
+}
+
+.btn-buy {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  background: var(--text-color);
+  color: var(--bg-color);
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-buy:hover {
+  background: hsl(24, 33%, 17%);
+}
+
+#close-cart {
+  position: absolute;
+  top: 1rem;
+  right: 0.8rem;
+  font-size: 2rem;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.cart-box {
+  display: grid;
+  grid-template-columns: 32% 50% 18%;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cart-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  object-position: center;
+  padding: 10px;
+}
+
+.detail-box {
+  display: grid;
+  row-gap: 0.5rem;
+}
+
+.cart-product-title {
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.cart-price {
+  font-weight: 500;
+}
+
+.cart-quantity {
+  border: 1px solid var(--text-color);
+  outline-color: var(--main-color);
+  width: 2.8rem;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.cart-remove {
+  font-size: 24px;
+  color: var(--main-color);
+  cursor: pointer;
+}
+
+/* Shop content */
+.shop-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, auto));
+  gap: 1.5rem;
+}
+
+/* Product box styles */
+.product-box {
+  position: relative;
+  background: #2d2e37;
+  padding: 10px;
+  border-radius: 5px;
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.product-box:hover {
+  background: var(--bg-color);
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 8px 32px hsla(0.75, 0.82, 0.165, 1);
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.product-box:hover .product-name,
+.product-box:hover .product-inventory,
+.product-box:hover .price {
+  color: #141414;
+}
+
+.product-img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.product-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.product-inventory {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.price {
+  font-weight: 500;
+}
+
+.add-cart {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: var(--text-color);
+  color: var(--bg-color);
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.add-cart:hover {
+  background: hsl(249, 32%, 17%);
+}
+
+/* Modal for Product Details */
+.details-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--container-color);
+  border-radius: 8px;
+  padding: 20px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content img {
+  width: 100%;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.close-modal:hover {
+  color: white;
+}
+
+.sc-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sc-container img {
+  width: 200px;
+  margin: 2rem 0;
+}
+.sc-container h1 {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+}
+.sc-container p {
+  max-width: 600px;
+  font-size: 0.97rem;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+.sc-btn {
+  padding: 12px 20px;
+  border-radius: 2rem;
+  background: var(--text-color);
+  color: var(--bg-color);
+  font-size: 1rem;
+  font-weight: 500;
+}
+/* Filter Container */
+.filter-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  color: var(--bg-color);
+}
+
+.filter-container label {
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+.filter-container select {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
+  background: var(--container-color);
+  color: var(--bg-color);
+}
+
+/* Add style for manufacturer search input to match the filter dropdown */
+#manufacturer-search {
+  padding: 0.5rem;
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: var(--container-color);
+  color: var(--bg-color);
+}
+
+#manufacturer-search:focus {
+  outline: none;
+  border-color: var(--main-color);
+}
+
+/* Optional: Add spacing between filter and search using container styling */
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Uniform spacing between elements in the filter container */
+}
+
+/* Making Responsive */
+@media (max-width: 1080px) {
+  .nav {
+    padding: 14px 0;
+  }
+  section {
+    padding: 3rem 0 2rem;
+  }
+  .container {
+    margin: 0 auto;
+    width: 90%;
+  }
+  .shop {
+    margin-top: 2rem !important;
+  }
+  .sc-container h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .nav {
+    padding: 12px 0;
+  }
+  .logo {
+    font-size: 1rem;
+  }
+  .cart {
+    width: 320px;
+  }
+  .sc-container h1 {
+    font-size: 1.1rem;
+  }
+  .sc-container p {
+    width: 90%;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .shop {
+    margin-top: 1rem !important;
+  }
+  .cart {
+    width: 100%;
+  }
+}
