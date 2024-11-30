@@ -1,7 +1,8 @@
 // frontend/src/components/dashboard/Cart.jsx
 import React from "react";
+import axios from "axios";
 
-function Cart({ isOpen, onClose, cartItems, setCartItems }) {
+function Cart({ isOpen, cartItems, setCartItems, cartRef }) {
   const updateQuantity = (productId, newQuantity) => {
     const updatedCart = cartItems.map((item) => {
       if (item.id === productId) {
@@ -69,9 +70,8 @@ function Cart({ isOpen, onClose, cartItems, setCartItems }) {
   const totals = calculateTotal();
 
   return (
-    <div className={`cart ${isOpen ? "active" : ""}`}>
+    <div className={`cart ${isOpen ? "active" : ""}`} ref={cartRef}>
       <h2 className="cart-title">Your Cart</h2>
-      <i className="bx bx-x" id="close-cart" onClick={onClose}></i>
 
       <div className="cart-content">
         {cartItems.map((item) => (

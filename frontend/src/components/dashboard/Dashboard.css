@@ -176,6 +176,10 @@ header {
   cursor: pointer;
 }
 
+#close-cart:hover {
+  color: var(--main-color);
+}
+
 .cart-box {
   display: grid;
   grid-template-columns: 32% 50% 18%;
@@ -457,4 +461,96 @@ header {
   .cart {
     width: 100%;
   }
+}
+.shop {
+  padding-top: 60px; /* 给商品列表添加顶部内边距，避免被 header 遮挡 */
+}
+
+.cart {
+  padding-top: 60px; /* 给购物车内容添加顶部内边距，避免被 header 遮挡 */
+}
+
+.filter-container {
+  margin-top: 20px; /* 给筛选器添加一点顶部边距 */
+}
+/* 在文件中添加以下样式 */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-direction: row-reverse;
+}
+
+.user-menu-container {
+  position: relative;
+}
+
+.user-icon {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--bg-color);
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--container-color);
+  border: 1px solid var(--text-color);
+  border-radius: 8px;
+  width: 180px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-top: 10px;
+}
+
+.dropdown-item {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--bg-color);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dropdown-item:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.dropdown-item:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.dropdown-item:hover {
+  background-color: var(--text-color);
+}
+
+.dropdown-item i {
+  font-size: 1.2rem;
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-icon i[data-quantity="0"]::after {
+  content: "";
+}
+
+.cart-icon i[data-quantity]::after {
+  content: attr(data-quantity);
+  position: absolute;
+  top: 0;
+  right: -12px;
+  width: 20px;
+  height: 20px;
+  background: var(--text-color);
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

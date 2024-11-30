@@ -1,0 +1,136 @@
+.order-history {
+  min-height: 100vh;
+  background: var(--container-color);
+  color: var(--bg-color);
+}
+
+.order-history header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--container-color);
+  box-shadow: 0 1px 4px hsla(0, 0%, 98%, 0.1);
+  z-index: 100;
+}
+
+.orders-container {
+  padding-top: 100px;
+  max-width: 1068px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--text-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background: hsl(249, 32%, 17%);
+}
+
+.loading,
+.no-orders {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: var(--bg-color);
+}
+
+.order-card {
+  background: #2d2e37;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--text-color);
+  margin-bottom: 15px;
+}
+
+.order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.order-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.order-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  background: white;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.item-details h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+}
+
+.item-details p {
+  margin: 4px 0;
+  color: #ccc;
+}
+
+.order-total {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--text-color);
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .orders-container {
+    padding: 80px 20px 20px;
+  }
+
+  .order-item {
+    grid-template-columns: 80px 1fr;
+  }
+
+  .order-item img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .item-details h3 {
+    font-size: 1rem;
+  }
+}

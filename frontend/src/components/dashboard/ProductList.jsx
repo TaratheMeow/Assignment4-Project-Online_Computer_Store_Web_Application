@@ -1,27 +1,42 @@
 // frontend/src/components/dashboard/ProductList.jsx
 import React, { useState } from "react";
 
-function ProductList({ products, cartItems, setCartItems }) {
+function ProductList({ products, cartItems, setCartItems, onAddToCart }) {
   const [category, setCategory] = useState("all");
   const [manufacturer, setManufacturer] = useState("");
 
-  const addToCart = (product) => {
-    const existingItem = cartItems.find((item) => item.id === product.id);
+  const handleAddToCart = (product) => {
+    if (product.inventory > 0) {
+      const existingItem = cartItems.find((item) => item.id === product._id);
 
-    if (existingItem) {
-      if (existingItem.quantity + 1 > product.inventory) {
-        alert("Insufficient inventory.");
-        return;
+      if (existingItem) {
+        if (existingItem.quantity + 1 > product.inventory) {
+          alert("Insufficient inventory.");
+          return;
+        }
+        const updatedCart = cartItems.map((item) =>
+          item.id === product._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+        setCartItems(updatedCart);
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+      } else {
+        const newItem = {
+          id: product._id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          quantity: 1,
+          inventory: product.inventory,
+        };
+        const updatedCart = [...cartItems, newItem];
+        setCartItems(updatedCart);
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
       }
-      const updatedCart = cartItems.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      );
-      setCartItems(updatedCart);
-    } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
-    }
 
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      onAddToCart(product);
+    }
   };
 
   const filteredProducts = products.filter((product) => {
@@ -72,7 +87,7 @@ function ProductList({ products, cartItems, setCartItems }) {
             <span className="price">${product.price}</span>
             <button
               className="add-cart"
-              onClick={() => addToCart(product)}
+              onClick={() => handleAddToCart(product)}
               disabled={product.inventory === 0}
             >
               Add to Cart
