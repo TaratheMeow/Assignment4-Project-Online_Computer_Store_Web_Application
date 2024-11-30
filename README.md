@@ -78,7 +78,7 @@ Start the backend server:
 
 ```bash
 cd backend
-npm install react-router-dom @material-ui/core @material-ui/icons
+npm install
 npm start
 ```
 
@@ -86,6 +86,7 @@ Start the frontend development server:
 
 ```bash
 cd frontend
+npm install
 npm start
 ```
 
