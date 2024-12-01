@@ -22,14 +22,14 @@ router.post("/stripe-checkout", async (req, res) => {
         },
         quantity: item.quantity,
       })),
-      success_url: `${process.env.FRONTEND_URL}/success`,
-      cancel_url: `${process.env.FRONTEND_URL}/cancel`,
+      success_url: `http://localhost:3000/success.html`,
+      cancel_url: `http://localhost:3000/dashboard`,
     });
 
     res.json(session.url);
   } catch (error) {
     console.error("Stripe checkout error:", error);
-    res.status(500).json({ error: "Failed to create checkout session" });
+    res.status(500).json({ error: "Failed to create checkout session: " +  error });
   }
 });
 

@@ -76,6 +76,7 @@ function ProductList({ products, cartItems, setCartItems, onAddToCart }) {
         <label>
           Manufacturer:
           <input
+            id="manufacturer-search"
             type="text"
             value={manufacturer}
             onChange={(e) => setManufacturer(e.target.value)}
