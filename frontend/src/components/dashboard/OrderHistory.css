@@ -102,3 +102,58 @@
     gap: 0.5rem;
   }
 }
+
+.order-header {
+  margin-bottom: 1.5rem;
+}
+
+.order-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.order-info span {
+  color: var(--bg-color);
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .order-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+.order-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.order-summary p {
+  color: var(--bg-color);
+  margin: 0;
+  font-size: 1rem;
+}
+
+.order-summary .total {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .order-summary {
+    align-items: flex-end;
+  }
+}
