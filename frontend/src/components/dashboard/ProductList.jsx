@@ -56,6 +56,14 @@ function ProductList({ products, cartItems, setCartItems, onAddToCart }) {
     return matchesCategory && matchesManufacturer;
   });
 
+  const hiddenProducts = new Set(
+    JSON.parse(localStorage.getItem("hiddenProducts") || "[]")
+  );
+
+  const visibleProducts = products.filter(
+    (product) => !hiddenProducts.has(product._id)
+  );
+
   return (
     <section className="shop container">
       <h2 className="section-title">Shop Products</h2>
@@ -86,7 +94,7 @@ function ProductList({ products, cartItems, setCartItems, onAddToCart }) {
       </div>
 
       <div className="shop-content">
-        {filteredProducts.map((product) => (
+        {visibleProducts.map((product) => (
           <div key={product._id} className="product-box">
             <img
               src={`http://localhost:5000/${product.image}`}
@@ -124,6 +132,15 @@ function ProductList({ products, cartItems, setCartItems, onAddToCart }) {
               alt={selectedProduct.name}
             />
             <div className="product-details">
+              <div className="product-rating">
+                <span className="rating-stars">
+                  {"★".repeat(Math.floor(selectedProduct.rating))}
+                  {"☆".repeat(5 - Math.floor(selectedProduct.rating))}
+                </span>
+                <span className="rating-value">
+                  {selectedProduct.rating.toFixed(1)} ★
+                </span>
+              </div>
               <p>
                 <strong>Category:</strong> {selectedProduct.category}
               </p>

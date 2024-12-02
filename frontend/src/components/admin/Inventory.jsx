@@ -7,6 +7,7 @@ function Inventory() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [editingId, setEditingId] = useState(null);
+  const [hiddenProducts, setHiddenProducts] = useState(new Set());
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,6 +44,13 @@ function Inventory() {
 
     fetchProducts();
   }, [navigate]);
+
+  useEffect(() => {
+    const savedHidden = JSON.parse(
+      localStorage.getItem("hiddenProducts") || "[]"
+    );
+    setHiddenProducts(new Set(savedHidden));
+  }, []);
 
   const handleInputChange = (id, field, value) => {
     // 添加输入验证
@@ -113,12 +121,26 @@ function Inventory() {
     setEditingId(productId);
   };
 
+  const handleVisibilityToggle = (productId) => {
+    setHiddenProducts((prev) => {
+      const newHidden = new Set(prev);
+      if (newHidden.has(productId)) {
+        newHidden.delete(productId); // 上架
+      } else {
+        newHidden.add(productId); // 下架
+      }
+      // 保存到 localStorage
+      localStorage.setItem("hiddenProducts", JSON.stringify([...newHidden]));
+      return newHidden;
+    });
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="inventory-container">
+    <div className="admin-container">
       <h2>Inventory Management</h2>
       {error && <div className="error-message">{error}</div>}
       <table className="inventory-table">
@@ -130,6 +152,7 @@ function Inventory() {
             <th>Manufacturer</th>
             <th>Price</th>
             <th>Inventory</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -221,6 +244,27 @@ function Inventory() {
                   />
                 ) : (
                   product.inventory
+                )}
+              </td>
+              <td>
+                {editingId === product._id ? (
+                  <span
+                    className={`status ${
+                      hiddenProducts.has(product._id) ? "hidden" : "visible"
+                    }`}
+                    onClick={() => handleVisibilityToggle(product._id)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {hiddenProducts.has(product._id) ? "Hidden" : "Visible"}
+                  </span>
+                ) : (
+                  <span
+                    className={`status ${
+                      hiddenProducts.has(product._id) ? "hidden" : "visible"
+                    }`}
+                  >
+                    {hiddenProducts.has(product._id) ? "Hidden" : "Visible"}
+                  </span>
                 )}
               </td>
               <td>

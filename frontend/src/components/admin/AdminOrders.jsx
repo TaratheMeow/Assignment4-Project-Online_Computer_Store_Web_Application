@@ -42,7 +42,7 @@ function AdminOrders() {
 
   const handleCancelOrder = async (orderId) => {
     const reason = prompt("Please enter a reason for cancellation (optional):");
-    if (reason === null) return; // 用户点击取消
+    if (reason === null) return;
 
     try {
       const token = localStorage.getItem("token");
@@ -79,7 +79,7 @@ function AdminOrders() {
   }
 
   return (
-    <div className="admin-orders">
+    <div className="admin-container">
       <h2>Order Management</h2>
       {error && <div className="error-message">{error}</div>}
 

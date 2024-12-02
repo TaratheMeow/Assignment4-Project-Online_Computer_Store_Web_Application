@@ -51,21 +51,34 @@ function OrderHistory() {
 
   return (
     <div className="order-history">
-      <h2>Order History</h2>
+      <div className="header-with-back">
+        <button className="back-button" onClick={() => navigate("/dashboard")}>
+          <i className="bx bx-arrow-back"></i>
+          Back to Dashboard
+        </button>
+        <h2>Order History</h2>
+      </div>
       {orders.length === 0 ? (
         <p className="no-orders">No orders found</p>
       ) : (
         <div className="orders-list">
           {orders.map((order) => (
             <div key={order._id} className="order-item">
-              <h3>Order #{order._id.slice(-6)}</h3>
-              <p>Date: {new Date(order.createdAt).toLocaleDateString()}</p>
-              <p>
-                Status:{" "}
-                <span className={`status ${order.status}`}>
-                  {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                </span>
-              </p>
+              <div className="order-header">
+                <div className="order-info">
+                  <span>Order #{order._id.slice(-6)}</span>
+                  <span>
+                    Date: {new Date(order.createdAt).toLocaleDateString()}
+                  </span>
+                  <span>
+                    Status:{" "}
+                    <span className={`status ${order.status}`}>
+                      {order.status.charAt(0).toUpperCase() +
+                        order.status.slice(1)}
+                    </span>
+                  </span>
+                </div>
+              </div>
               <div className="order-items">
                 {order.items.map((item, index) => (
                   <div key={index} className="order-product">

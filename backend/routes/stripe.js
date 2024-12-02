@@ -10,7 +10,7 @@ router.post("/stripe-checkout", auth, async (req, res) => {
     const { items, tax, shipping, total } = req.body;
     const userId = req.user.id;
 
-    // 创建 Stripe checkout session
+    // create stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -25,7 +25,6 @@ router.post("/stripe-checkout", auth, async (req, res) => {
           },
           quantity: item.quantity,
         })),
-        // 添加税费作为单独的项目
         {
           price_data: {
             currency: "usd",
@@ -36,7 +35,6 @@ router.post("/stripe-checkout", auth, async (req, res) => {
           },
           quantity: 1,
         },
-        // 添加运费作为单独的项目
         {
           price_data: {
             currency: "usd",
@@ -52,7 +50,6 @@ router.post("/stripe-checkout", auth, async (req, res) => {
       cancel_url: `http://localhost:3000/dashboard`,
     });
 
-    // 创建订单记录
     const order = new Order({
       userId: userId,
       items: items.map((item) => ({
@@ -63,7 +60,7 @@ router.post("/stripe-checkout", auth, async (req, res) => {
       })),
       tax: tax,
       shipping: shipping,
-      total: total, // 包含税费和运费的总额
+      total: total,
       paymentId: session.id,
       status: "pending",
     });

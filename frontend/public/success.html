@@ -20,10 +20,8 @@
       localStorage.removeItem("cartItems");
       localStorage.removeItem("cartTotal");
 
-      // 获取用户token
       const token = localStorage.getItem("token");
 
-      // 更新订单状态
       if (token) {
         fetch("http://localhost:5000/api/orders/update-status", {
           method: "POST",

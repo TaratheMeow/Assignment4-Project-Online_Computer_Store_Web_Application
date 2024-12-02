@@ -2,20 +2,18 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Order = require("../models/Order");
-const Product = require("../models/Product");
+const Product = require("../models/Products");
 
-// 获取所有订单（管理员专用）
+// get all orders (admin only)
 router.get("/all", auth, async (req, res) => {
   try {
-    // 检查是否是管理员
     if (req.user.role !== "admin") {
       return res.status(403).json({ message: "Access denied. Admin only." });
     }
 
-    // 获取所有订单并按创建时间倒序排列
     const orders = await Order.find()
       .sort({ createdAt: -1 })
-      .populate("userId", "email"); // 可选：关联用户信息
+      .populate("userId", "email");
 
     res.json(orders);
   } catch (error) {
@@ -24,7 +22,6 @@ router.get("/all", auth, async (req, res) => {
   }
 });
 
-// 获取用户订单历史（现有的路由）
 router.get("/history", auth, async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.user.id }).sort({
@@ -37,7 +34,6 @@ router.get("/history", auth, async (req, res) => {
   }
 });
 
-// 更新订单状态（现有的路由）
 router.post("/update-status", auth, async (req, res) => {
   try {
     const latestOrder = await Order.findOne({
@@ -49,7 +45,6 @@ router.post("/update-status", auth, async (req, res) => {
       latestOrder.status = "completed";
       await latestOrder.save();
 
-      // 更新商品库存
       for (const item of latestOrder.items) {
         const product = await Product.findOne({ name: item.name });
         if (product) {
@@ -69,18 +64,16 @@ router.post("/update-status", auth, async (req, res) => {
   }
 });
 
-// 取消订单
 router.put("/:id/cancel", auth, async (req, res) => {
   try {
-    // 检查是否是管理员
+    // check
     if (req.user.role !== "admin") {
       return res.status(403).json({ message: "Access denied. Admin only." });
     }
 
     const { id } = req.params;
-    const { reason } = req.body; // 可选：接收取消原因
+    const { reason } = req.body;
 
-    // 查找并更新订单
     const order = await Order.findById(id);
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
@@ -90,7 +83,7 @@ router.put("/:id/cancel", auth, async (req, res) => {
       return res.status(400).json({ message: "Order is already cancelled" });
     }
 
-    // 恢复库存
+    // restore inventory
     for (const item of order.items) {
       const product = await Product.findOne({ name: item.name });
       if (product) {
@@ -102,7 +95,7 @@ router.put("/:id/cancel", auth, async (req, res) => {
       }
     }
 
-    // 更新订单状态和取消信息
+    // update order status
     order.status = "cancelled";
     order.cancelledAt = new Date();
     if (reason) {
