@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Success</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="sc-container">
+      <h1>Payment Successful!</h1>
+      <p>Your order will arrive within 5 business days.</p>
+      <a href="http://localhost:3000/dashboard" class="sc-btn"
+        >Back to Homepage</a
+      >
+    </div>
+    <script>
+      // Clear the cart from localStorage
+      localStorage.removeItem("cartItems");
+      localStorage.removeItem("cartTotal");
+
+      // 获取用户token
+      const token = localStorage.getItem("token");
+
+      // 更新订单状态
+      if (token) {
+        fetch("http://localhost:5000/api/orders/update-status", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            status: "completed",
+          }),
+        }).catch(console.error);
+      }
+    </script>
+  </body>
+</html>

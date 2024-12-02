@@ -4,30 +4,42 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 检查本地存储中的令牌
+    // 初始化时检查本地存储中的认证信息
     const token = localStorage.getItem("token");
-    const role = localStorage.getItem("role");
+    const role = localStorage.getItem("userRole");
+
     if (token && role) {
       setUser({ token, role });
     }
+    setLoading(false);
   }, []);
 
   const login = (token, role) => {
     localStorage.setItem("token", token);
-    localStorage.setItem("role", role);
+    localStorage.setItem("userRole", role);
     setUser({ token, role });
   };
 
   const logout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("selectedRole");
     setUser(null);
   };
 
+  const isAuthenticated = () => {
+    return !!user?.token;
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

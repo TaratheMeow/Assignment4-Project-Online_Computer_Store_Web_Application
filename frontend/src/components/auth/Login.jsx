@@ -10,14 +10,24 @@ function Login() {
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const selectedRole = localStorage.getItem("selectedRole");
 
+  const handleRedirect = (role) => {
+    if (role === "admin") {
+      navigate("/admin/inventory");
+    } else {
+      navigate("/dashboard");
+    }
+  };
+
   useEffect(() => {
-    if (!selectedRole) {
+    if (user?.token && user.role === selectedRole) {
+      handleRedirect(user.role);
+    } else if (!selectedRole) {
       navigate("/");
     }
-  }, [selectedRole, navigate]);
+  }, [user, selectedRole, navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -28,16 +38,15 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
     try {
       const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
@@ -47,12 +56,7 @@ function Login() {
 
       const data = await response.json();
       login(data.token, data.role);
-
-      if (data.role === "admin") {
-        navigate("/admin/dashboard");
-      } else {
-        navigate("/dashboard");
-      }
+      handleRedirect(data.role);
     } catch (err) {
       setError(err.message || "Login failed");
       console.error("Login error:", err);

@@ -55,8 +55,12 @@ Create a `.env` file in the backend directory:
 
 ```env
 PORT=5000
-MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/userauth
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.nqrmi.mongodb.net/userauth
 JWT_SECRET=your_jwt_secret_key
+STRIPE_SECRET_KEY=sk_test_51QNPREP4t6UXnB3YukWKNWj4tDmWADzc5v1jWbtjK6RiOuxJu7BcZr3A1aKGs5K3LXB5P8r3fJeVgYOOe6Cf5dlr00kANf5owx
+FRONTEND_URL=http://localhost:3000
+STRIPE_WEBHOOK_SECRET=whsec_xxxxx...
+CLIENT_URL=http://localhost:3000
 ```
 
 ### 3. Frontend Setup
@@ -78,7 +82,7 @@ Start the backend server:
 
 ```bash
 cd backend
-npm install react-router-dom @material-ui/core @material-ui/icons
+npm install
 npm start
 ```
 
@@ -86,6 +90,7 @@ Start the frontend development server:
 
 ```bash
 cd frontend
+npm install
 npm start
 ```
 
@@ -101,10 +106,41 @@ After starting the server for the first time, a default admin account will be cr
 - Email: admin@example.com
 - Password: admin123
 
+## Test User Account
+
+After starting the server for the first time, a default admin account will be created:
+
+- Email: 1@test.com
+- Password: 1
+
 ### Authentication
 
-- `POST /api/auth/login` - User login
-- `GET /api/dashboard` - Protected route example
+- `POST /api/auth/register` - User registration
+
+  - Body: `{ email, password, role }`
+  - Response: `{ token, user }`
+
+- `POST /api/auth/login` - User/Admin login
+  - Body: `{ email, password }`
+  - Response: `{ token, user, role }`
+
+### Protected Routes
+
+#### User Routes
+
+- `GET /api/orders/history` - Get user's order history
+- `POST /api/orders/update-status` - Update order status
+- `GET /api/dashboard` - User dashboard
+
+#### Admin Routes
+
+- `GET /api/orders/all` - Get all orders (admin only)
+- `PUT /api/orders/:id/cancel` - Cancel an order (admin only)
+- `PUT /api/products/:id` - Update product inventory (admin only)
+
+### Authorization
+
+All protected routes require a valid JWT token in the Authorization header:
 
 ### Database Access
 
@@ -116,5 +152,4 @@ After starting the server for the first time, a default admin account will be cr
 ### Environment Variables
 
 - Never commit `.env` files to version control
-- Use `.env.example` as a template
 - Each team member should maintain their own `.env` file

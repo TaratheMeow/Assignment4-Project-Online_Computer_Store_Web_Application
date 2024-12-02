@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Dell XPS Desktop",
+    "price": 1200,
+    "image": "img/product1.jpeg",
+    "manufacturer": "Dell",
+    "category": "Desktops",
+    "description": "A high-performance desktop computer with cutting-edge components for professional use.",
+    "inventory": 0
+  },
+  {
+    "id": 2,
+    "name": "MacBook Pro 14-inch",
+    "price": 2400,
+    "image": "img/product2.jpeg",
+    "manufacturer": "Apple",
+    "category": "Laptops",
+    "description": "The latest MacBook Pro featuring the M1 Pro chip for unmatched performance.",
+    "inventory": 2
+  },
+  {
+    "id": 3,
+    "name": "LG UltraGear Monitor",
+    "price": 1350,
+    "image": "img/product3.jpeg",
+    "manufacturer": "LG",
+    "category": "Monitors",
+    "description": "A 27-inch monitor with a 144Hz refresh rate and G-SYNC compatibility for gaming enthusiasts.",
+    "inventory": 3
+  },
+  {
+    "id": 4,
+    "name": "Logitech MX Master 3",
+    "price": 120,
+    "image": "img/product4.jpeg",
+    "manufacturer": "Logitech",
+    "category": "Accessories",
+    "description": "A premium wireless mouse designed for professionals and creatives.",
+    "inventory": 4
+  },
+  {
+    "id": 5,
+    "name": "HP Spectre x360",
+    "price": 2000,
+    "image": "img/product5.jpeg",
+    "manufacturer": "HP",
+    "category": "Laptops",
+    "description": "A versatile convertible laptop with a sleek design and powerful performance.",
+    "inventory": 5
+  },
+  {
+    "id": 6,
+    "name": "Samsung Smart Monitor M8",
+    "price": 700,
+    "image": "img/product6.jpeg",
+    "manufacturer": "Samsung",
+    "category": "Monitors",
+    "description": "A smart monitor with built-in apps and Wi-Fi connectivity, perfect for both work and entertainment.",
+    "inventory": 6
+  },
+  {
+    "id": 7,
+    "name": "Razer BlackWidow Keyboard",
+    "price": 275,
+    "image": "img/product7.jpeg",
+    "manufacturer": "Razer",
+    "category": "Accessories",
+    "description": "A mechanical gaming keyboard with customizable RGB lighting and tactile keys.",
+    "inventory": 7
+  },
+  {
+    "id": 8,
+    "name": "Lenovo ThinkCentre M90t",
+    "price": 1500,
+    "image": "img/product8.jpeg",
+    "manufacturer": "Lenovo",
+    "category": "Desktops",
+    "description": "A reliable and compact desktop computer designed for business environments.",
+    "inventory": 8
+  }
+]
