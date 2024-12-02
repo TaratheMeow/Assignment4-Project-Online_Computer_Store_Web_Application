@@ -59,7 +59,7 @@ function Dashboard() {
 
   const handleOrderHistoryClick = () => {
     navigate("/order-history");
-    setIsUserMenuOpen(false); // 关闭用户菜单
+    setIsUserMenuOpen(false); //close user menu
   };
 
   const handleAddToCart = (product) => {

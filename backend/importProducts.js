@@ -4,7 +4,7 @@ const Product = require("./models/Products");
 const fs = require("fs");
 const path = require("path");
 
-// MongoDB 连接
+// connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -17,32 +17,31 @@ mongoose
     console.error("MongoDB connection error:", err);
   });
 
-// 读取 JSON 文件
+// read initial json file
 const filePath = path.join(__dirname, "source/json/products.json");
 const productsData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-// 更新或插入数据到数据库
+// update or insert data to database
 const importData = async () => {
   try {
     for (const product of productsData) {
-      // 设置图片路径为前端可访问的 URL
       const imagePath = `source/img/product${product.id}.jpeg`;
 
       await Product.updateOne(
-        { id: product.id }, // 查找条件
+        { id: product.id },
         {
           $set: {
             name: product.name,
             price: product.price,
-            image: imagePath, // 使用前端可访问的路径
+            image: imagePath,
             manufacturer: product.manufacturer,
             category: product.category,
             description: product.description,
             inventory: product.inventory,
-            createdAt: new Date(), // 或者使用 product.createdAt
+            createdAt: new Date(),
           },
         },
-        { upsert: true } // 如果不存在则插入
+        { upsert: true } // if not exist, insert
       );
     }
     console.log("Data imported successfully");

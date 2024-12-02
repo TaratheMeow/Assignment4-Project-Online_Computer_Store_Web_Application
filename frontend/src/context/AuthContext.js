@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 初始化时检查本地存储中的认证信息
+    // check authentication info in local storage when initializing
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("userRole");
 

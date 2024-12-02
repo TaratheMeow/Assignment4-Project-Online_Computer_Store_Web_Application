@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const app = express();
 
-// 中间件
+// middleware
 app.use(express.json());
 app.use(
   cors({
@@ -15,7 +15,6 @@ app.use(
   })
 );
 
-// MongoDB 连接
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
@@ -25,7 +24,7 @@ mongoose
     console.error("MongoDB connection error:", err);
   });
 
-// API 路由
+// API
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/products", require("./routes/products"));
 app.use("/api", require("./routes/stripe"));

@@ -11,7 +11,6 @@
   text-decoration: none;
 }
 
-/* Some variables */
 :root {
   --main-color: #fd4646;
   --text-color: #02ac70;
@@ -38,7 +37,6 @@ section {
   width: 100%;
 }
 
-/* Header */
 header {
   position: fixed;
   top: 0;
@@ -116,7 +114,6 @@ header {
   margin-top: 2rem;
 }
 
-/* Scrollable cart content */
 .cart-content {
   flex: 1;
   overflow-y: auto;
@@ -124,7 +121,6 @@ header {
   padding-bottom: 120px; /* Ensure the content does not overlap the summary */
 }
 
-/* Cart summary (sticky) */
 .cart-summary {
   position: sticky;
   bottom: 0;
@@ -226,14 +222,12 @@ header {
   cursor: pointer;
 }
 
-/* Shop content */
 .shop-content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, auto));
   gap: 1.5rem;
 }
 
-/* Product box styles */
 .product-box {
   position: relative;
   background: #2d2e37;
@@ -421,7 +415,6 @@ header {
   color: var(--bg-color);
 }
 
-/* Add style for manufacturer search input to match the filter dropdown */
 #manufacturer-search {
   padding: 0.5rem;
   border: 1px solid var(--text-color);
@@ -436,14 +429,12 @@ header {
   border-color: var(--main-color);
 }
 
-/* Optional: Add spacing between filter and search using container styling */
 .filter-container {
   display: flex;
   align-items: center;
-  gap: 1rem; /* Uniform spacing between elements in the filter container */
+  gap: 1rem;
 }
 
-/* Making Responsive */
 @media (max-width: 1080px) {
   .nav {
     padding: 14px 0;
@@ -491,17 +482,17 @@ header {
   }
 }
 .shop {
-  padding-top: 60px; /* 给商品列表添加顶部内边距，避免被 header 遮挡 */
+  padding-top: 60px;
 }
 
 .cart {
-  padding-top: 60px; /* 给购物车内容添加顶部内边距，避免被 header 遮挡 */
+  padding-top: 60px;
 }
 
 .filter-container {
-  margin-top: 20px; /* 给筛选器添加一点顶部边距 */
+  margin-top: 20px;
 }
-/* 在文件中添加以下样式 */
+
 .nav-right {
   display: flex;
   align-items: center;
