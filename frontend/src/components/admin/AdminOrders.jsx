@@ -79,7 +79,7 @@ function AdminOrders() {
   }
 
   return (
-    <div className="admin-orders">
+    <div className="admin-container">
       <h2>Order Management</h2>
       {error && <div className="error-message">{error}</div>}
 

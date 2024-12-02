@@ -58,6 +58,16 @@
   color: var(--bg-color);
 }
 
-.admin-content {
-  padding-top: 80px;
+/* 内容区域样式 */
+.admin-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 60px auto 0;
+}
+
+.admin-container h2 {
+  color: var(--bg-color);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
 }

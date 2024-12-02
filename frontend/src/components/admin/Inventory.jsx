@@ -118,7 +118,7 @@ function Inventory() {
   }
 
   return (
-    <div className="inventory-container">
+    <div className="admin-container">
       <h2>Inventory Management</h2>
       {error && <div className="error-message">{error}</div>}
       <table className="inventory-table">

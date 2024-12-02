@@ -51,7 +51,13 @@ function OrderHistory() {
 
   return (
     <div className="order-history">
-      <h2>Order History</h2>
+      <div className="header-with-back">
+        <button className="back-button" onClick={() => navigate("/dashboard")}>
+          <i className="bx bx-arrow-back"></i>
+          Back to Dashboard
+        </button>
+        <h2>Order History</h2>
+      </div>
       {orders.length === 0 ? (
         <p className="no-orders">No orders found</p>
       ) : (
