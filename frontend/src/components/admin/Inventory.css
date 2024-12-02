@@ -1,0 +1,124 @@
+.inventory-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 60px auto 0;
+}
+
+.inventory-container h2 {
+  color: var(--bg-color);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.error-message {
+  background-color: #ff4d4f;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #2d2e37;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.inventory-table th {
+  background-color: #2d2e37;
+  color: var(--bg-color);
+  font-weight: 500;
+  border-bottom: 2px solid var(--text-color);
+}
+
+.inventory-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.inventory-table input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
+  background: var(--container-color);
+  color: var(--bg-color);
+}
+
+.inventory-table input:focus {
+  outline: none;
+  border-color: var(--main-color);
+}
+
+.product-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  background: white;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.edit-button {
+  padding: 8px 16px;
+  background: #4a4a5e;
+  color: var(--bg-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+  background: #5a5a6e;
+}
+
+.save-button {
+  padding: 8px 16px;
+  background: var(--text-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.save-button:hover {
+  background: #029861;
+}
+
+.inventory-table td {
+  color: var(--bg-color);
+}
+
+@media (max-width: 768px) {
+  .inventory-container {
+    padding: 1rem;
+  }
+
+  .inventory-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .inventory-table th,
+  .inventory-table td {
+    padding: 10px;
+  }
+
+  .product-image {
+    width: 60px;
+    height: 60px;
+  }
+}

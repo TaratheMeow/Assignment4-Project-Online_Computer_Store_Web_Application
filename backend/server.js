@@ -7,13 +7,13 @@ require("dotenv").config();
 const app = express();
 
 // 中间件
+app.use(express.json());
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || "http://localhost:3000",
     credentials: true,
   })
 );
-app.use(express.json());
 
 // MongoDB 连接
 mongoose
@@ -26,7 +26,7 @@ mongoose
   });
 
 // API 路由
-app.use("/api/auth", require("./routes/auth")); // 确保路径正确
+app.use("/api/auth", require("./routes/auth"));
 app.use("/api/products", require("./routes/products"));
 app.use("/api", require("./routes/stripe"));
 app.use("/api/orders", require("./routes/orders"));

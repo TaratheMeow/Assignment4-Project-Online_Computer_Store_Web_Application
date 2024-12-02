@@ -15,7 +15,7 @@ function Login() {
 
   const handleRedirect = (role) => {
     if (role === "admin") {
-      navigate("/admin/dashboard");
+      navigate("/admin/inventory");
     } else {
       navigate("/dashboard");
     }

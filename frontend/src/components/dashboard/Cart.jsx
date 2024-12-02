@@ -1,6 +1,5 @@
 // frontend/src/components/dashboard/Cart.jsx
 import React from "react";
-import axios from "axios";
 
 function Cart({ isOpen, cartItems, setCartItems, cartRef }) {
   const updateQuantity = (productId, newQuantity) => {

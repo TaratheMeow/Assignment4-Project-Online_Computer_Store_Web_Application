@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./OrderHistory.css";
-import axios from "axios";
 
 function OrderHistory() {
   const [orders, setOrders] = useState([]);
@@ -17,7 +16,7 @@ function OrderHistory() {
 
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(
+        const response = await fetch(
           "http://localhost:5000/api/orders/history",
           {
             headers: {
@@ -25,8 +24,14 @@ function OrderHistory() {
             },
           }
         );
-        console.log("Orders response:", response.data);
-        setOrders(response.data);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch orders");
+        }
+
+        const data = await response.json();
+        console.log("Orders response:", data);
+        setOrders(data);
       } catch (error) {
         console.error("Error fetching orders:", error);
         if (error.response?.status === 401) {

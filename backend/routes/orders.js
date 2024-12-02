@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Order = require("../models/Order");
-const Product = require("../models/Products"); // 添加 Product model
+const Product = require("../models/Product"); // 不是 Products
 
 router.get("/history", auth, async (req, res) => {
   try {
