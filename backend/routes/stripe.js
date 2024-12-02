@@ -2,34 +2,79 @@
 const express = require("express");
 const router = express.Router();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const Order = require("../models/Order");
+const auth = require("../middleware/auth");
 
-router.post("/stripe-checkout", async (req, res) => {
+router.post("/stripe-checkout", auth, async (req, res) => {
   try {
-    const { items } = req.body;
+    const { items, tax, shipping, total } = req.body;
+    const userId = req.user.id;
 
     // 创建 Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      line_items: items.map((item) => ({
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: item.name,
-            images: [`http://localhost:5000/${item.image}`],
+      line_items: [
+        ...items.map((item) => ({
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: item.name,
+            },
+            unit_amount: Math.round(item.price * 100),
           },
-          unit_amount: Math.round(item.price * 100), // Stripe 使用分为单位
+          quantity: item.quantity,
+        })),
+        // 添加税费作为单独的项目
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: "Tax (13%)",
+            },
+            unit_amount: Math.round(tax * 100),
+          },
+          quantity: 1,
         },
-        quantity: item.quantity,
-      })),
+        // 添加运费作为单独的项目
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: "Shipping Fee",
+            },
+            unit_amount: Math.round(shipping * 100),
+          },
+          quantity: 1,
+        },
+      ],
       success_url: `http://localhost:3000/success.html`,
       cancel_url: `http://localhost:3000/dashboard`,
     });
 
+    // 创建订单记录
+    const order = new Order({
+      userId: userId,
+      items: items.map((item) => ({
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        image: item.image,
+      })),
+      tax: tax,
+      shipping: shipping,
+      total: total, // 包含税费和运费的总额
+      paymentId: session.id,
+      status: "pending",
+    });
+
+    await order.save();
+    console.log("Order created:", order);
+
     res.json(session.url);
   } catch (error) {
-    console.error("Stripe checkout error:", error);
-    res.status(500).json({ error: "Failed to create checkout session: " +  error });
+    console.error("Stripe error:", error);
+    res.status(500).json({ error: "Failed to create checkout session" });
   }
 });
 

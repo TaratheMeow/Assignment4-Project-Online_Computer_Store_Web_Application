@@ -36,12 +36,24 @@ function Cart({ isOpen, cartItems, setCartItems, cartRef }) {
   };
   const handleCheckout = async () => {
     try {
+      const token = localStorage.getItem("token");
+      console.log("Token from localStorage:", token);
+
+      if (!token) {
+        alert("Please login first");
+        window.location.href = "/login";
+        return;
+      }
+
+      const totals = calculateTotal();
+
       const response = await fetch(
         "http://localhost:5000/api/stripe-checkout",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             items: cartItems.map((item) => ({
@@ -51,19 +63,26 @@ function Cart({ isOpen, cartItems, setCartItems, cartRef }) {
               quantity: item.quantity,
               image: item.image,
             })),
+            tax: totals.tax,
+            shipping: totals.shipping,
+            total: totals.total,
           }),
         }
       );
 
+      console.log("Response status:", response.status);
+
       if (!response.ok) {
-        throw new Error("Checkout failed");
+        const errorData = await response.json();
+        console.error("Server error details:", errorData);
+        throw new Error(errorData.message || "Checkout failed");
       }
 
       const checkoutUrl = await response.json();
       window.location.href = checkoutUrl;
     } catch (error) {
-      console.error("Checkout error:", error);
-      alert("Failed to process payment.");
+      console.error("Full error:", error);
+      alert(`Payment failed: ${error.message}`);
     }
   };
 
