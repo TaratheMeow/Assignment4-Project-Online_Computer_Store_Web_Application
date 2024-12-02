@@ -583,3 +583,30 @@ header {
   margin: 10px 0;
   line-height: 1.5;
 }
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  color: var(--bg-color);
+}
+
+.rating-stars {
+  color: #ffd700; /* 金色星星 */
+  letter-spacing: 2px;
+}
+
+.rating-value {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+/* 当产品卡片hover时的样式 */
+.product-box:hover .product-rating {
+  color: #141414;
+}
+
+.product-box:hover .rating-value {
+  color: #666;
+}

@@ -2,14 +2,31 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
-const Product = require("../models/Product");
+const Product = require("../models/Products");
 const mongoose = require("mongoose");
 
 router.get("/", async (req, res) => {
   try {
     const products = await Product.find();
-    res.json(products);
+
+    try {
+      const fakeStoreResponse = await fetch(
+        "https://fakestoreapi.com/products?limit=8"
+      );
+      const fakeStoreProducts = await fakeStoreResponse.json();
+
+      const productsWithRatings = products.map((product, index) => ({
+        ...product.toObject(),
+        rating: fakeStoreProducts[index]?.rating?.rate || 4.0,
+      }));
+
+      res.json(productsWithRatings);
+    } catch (error) {
+      console.error("Error fetching ratings:", error);
+      res.json(products);
+    }
   } catch (error) {
+    console.error("Error fetching products:", error);
     res.status(500).json({ message: "Error fetching products" });
   }
 });

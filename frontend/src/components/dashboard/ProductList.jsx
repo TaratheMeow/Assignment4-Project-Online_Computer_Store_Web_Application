@@ -124,6 +124,15 @@ function ProductList({ products, cartItems, setCartItems, onAddToCart }) {
               alt={selectedProduct.name}
             />
             <div className="product-details">
+              <div className="product-rating">
+                <span className="rating-stars">
+                  {"★".repeat(Math.floor(selectedProduct.rating))}
+                  {"☆".repeat(5 - Math.floor(selectedProduct.rating))}
+                </span>
+                <span className="rating-value">
+                  {selectedProduct.rating.toFixed(1)} ★
+                </span>
+              </div>
               <p>
                 <strong>Category:</strong> {selectedProduct.category}
               </p>
