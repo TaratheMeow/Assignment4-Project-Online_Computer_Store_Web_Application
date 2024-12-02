@@ -27,22 +27,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/dashboard/*" element={<Dashboard />} />
               <Route path="/order-history" element={<OrderHistory />} />
-              <Route
-                path="/admin/dashboard"
-                element={
-                  <PrivateRoute role="admin">
-                    <AdminDashboard />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/admin/inventory"
-                element={
-                  <PrivateRoute role="admin">
-                    <Inventory />
-                  </PrivateRoute>
-                }
-              />
+              <Route path="/admin/*" element={<AdminDashboard />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>
