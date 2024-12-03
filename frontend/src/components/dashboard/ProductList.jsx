@@ -48,21 +48,20 @@ function ProductList({ products, cartItems, setCartItems, onAddToCart }) {
     setSelectedProduct(null);
   };
 
-  const filteredProducts = products.filter((product) => {
-    const matchesCategory = category === "all" || product.category === category;
-    const matchesManufacturer =
-      manufacturer === "" ||
-      product.manufacturer.toLowerCase().includes(manufacturer.toLowerCase());
-    return matchesCategory && matchesManufacturer;
-  });
-
   const hiddenProducts = new Set(
     JSON.parse(localStorage.getItem("hiddenProducts") || "[]")
   );
 
-  const visibleProducts = products.filter(
-    (product) => !hiddenProducts.has(product._id)
-  );
+  const filteredProducts = products
+    .filter((product) => !hiddenProducts.has(product._id))
+    .filter((product) => {
+      const matchesCategory =
+        category === "all" || product.category === category;
+      const matchesManufacturer =
+        manufacturer === "" ||
+        product.manufacturer.toLowerCase().includes(manufacturer.toLowerCase());
+      return matchesCategory && matchesManufacturer;
+    });
 
   return (
     <section className="shop container">
@@ -94,7 +93,7 @@ function ProductList({ products, cartItems, setCartItems, onAddToCart }) {
       </div>
 
       <div className="shop-content">
-        {visibleProducts.map((product) => (
+        {filteredProducts.map((product) => (
           <div key={product._id} className="product-box">
             <img
               src={`http://localhost:5000/${product.image}`}
