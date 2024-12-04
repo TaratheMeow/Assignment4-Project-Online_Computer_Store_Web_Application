@@ -95,12 +95,19 @@ function ProductList({ products, cartItems, setCartItems, onAddToCart }) {
       <div className="shop-content">
         {filteredProducts.map((product) => (
           <div key={product._id} className="product-box">
-            <img
-              src={`http://localhost:5000/${product.image}`}
-              alt={product.name}
-              onClick={() => handleProductClick(product)}
-              style={{ cursor: "pointer" }}
-            />
+            <div className="product-image-container">
+              <img
+                src={`http://localhost:5000/${product.image}`}
+                alt={product.name}
+                onClick={() => handleProductClick(product)}
+                style={{ cursor: "pointer" }}
+              />
+              {product.inventory === 0 && (
+                <div className="sold-out-overlay">
+                  <span>SOLD OUT</span>
+                </div>
+              )}
+            </div>
             <h2
               className="product-name"
               onClick={() => handleProductClick(product)}

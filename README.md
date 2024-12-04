@@ -47,7 +47,7 @@ cd backend
 npm install express mongoose cors bcryptjs jsonwebtoken dotenv express-rate-limit
 ```
 
-Create a `.env` file in the backend directory:
+Create a `.env` file in the backend directory (This mongoDB URI is for testing purposes only):
 
 ```env
 PORT=5000
@@ -108,6 +108,12 @@ testing user account:
 
 - Email: 1@test.com
 - Password: 1
+
+## Test bank card information
+
+- Card Number: 4242 4242 4242 4242
+- Expiration Date: 11/31
+- CVC: 111
 
 ### Authentication
 
