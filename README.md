@@ -1,10 +1,6 @@
-# A4
+# Lab Assignment #4
 
-9065 A4
-
-## Features
-
--
+Project - Online Computer Store Web Application
 
 ## Tech Stack
 
@@ -55,7 +51,7 @@ Create a `.env` file in the backend directory:
 
 ```env
 PORT=5000
-MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.nqrmi.mongodb.net/userauth
+MONGODB_URI=mongodb+srv://testUser:test123@cluster0.nqrmi.mongodb.net/userauth
 JWT_SECRET=your_jwt_secret_key
 STRIPE_SECRET_KEY=sk_test_51QNPREP4t6UXnB3YukWKNWj4tDmWADzc5v1jWbtjK6RiOuxJu7BcZr3A1aKGs5K3LXB5P8r3fJeVgYOOe6Cf5dlr00kANf5owx
 FRONTEND_URL=http://localhost:3000
