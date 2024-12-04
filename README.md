@@ -104,7 +104,7 @@ After starting the server for the first time, a default admin account will be cr
 
 ## Test User Account
 
-After starting the server for the first time, a default admin account will be created:
+testing user account:
 
 - Email: 1@test.com
 - Password: 1
