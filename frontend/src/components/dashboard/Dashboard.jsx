@@ -85,6 +85,16 @@ function Dashboard() {
                 <div className="user-dropdown">
                   <div
                     className="dropdown-item"
+                    onClick={() => {
+                      navigate("/profile");
+                      setIsUserMenuOpen(false);
+                    }}
+                  >
+                    <i className="bx bx-user"></i>
+                    Profile
+                  </div>
+                  <div
+                    className="dropdown-item"
                     onClick={handleOrderHistoryClick}
                   >
                     <i className="bx bx-history"></i>

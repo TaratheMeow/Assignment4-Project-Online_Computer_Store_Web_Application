@@ -14,6 +14,7 @@ import AdminDashboard from "./components/admin/AdminDashboard";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import OrderHistory from "./components/dashboard/OrderHistory";
 import Inventory from "./components/admin/Inventory";
+import Profile from "./components/dashboard/Profile";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="/dashboard/*" element={<Dashboard />} />
               <Route path="/order-history" element={<OrderHistory />} />
               <Route path="/admin/*" element={<AdminDashboard />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>

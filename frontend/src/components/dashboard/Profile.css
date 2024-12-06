@@ -1,0 +1,64 @@
+.profile-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 60px auto 0;
+}
+
+.profile-info {
+  background: #2d2e37;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  color: var(--bg-color);
+}
+
+.address-form {
+  background: #2d2e37;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--bg-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
+  background: var(--container-color);
+  color: var(--bg-color);
+}
+
+.message {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  text-align: center;
+  color: var(--bg-color);
+}
+
+button {
+  width: 100%;
+  padding: 0.8rem;
+  background: var(--text-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+h3 {
+  color: var(--bg-color);
+  margin-bottom: 1rem;
+}

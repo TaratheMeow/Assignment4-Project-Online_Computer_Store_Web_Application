@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const auth = require("../middleware/auth");
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -63,6 +64,32 @@ router.post("/register", async (req, res) => {
   } catch (error) {
     console.error("Registration error:", error);
     res.status(500).json({ message: "Server error during registration" });
+  }
+});
+
+router.get("/profile", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json(user);
+  } catch (err) {
+    console.log("Profile fetch error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.put("/profile", auth, async (req, res) => {
+  try {
+    const { address } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { $set: { address } },
+      { new: true }
+    ).select("-password");
+
+    res.json(user);
+  } catch (err) {
+    console.log("Profile update error:", err);
+    res.status(500).json({ message: "Update failed" });
   }
 });
 
