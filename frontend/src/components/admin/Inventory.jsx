@@ -53,7 +53,6 @@ function Inventory() {
   }, []);
 
   const handleInputChange = (id, field, value) => {
-    // 添加输入验证
     if (field === "price" && value < 0) return;
     if (field === "inventory" && value < 0) return;
 

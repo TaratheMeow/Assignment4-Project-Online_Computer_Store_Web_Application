@@ -1,4 +1,4 @@
-require("dotenv").config(); // 加载环境变量
+require("dotenv").config();
 const mongoose = require("mongoose");
 const Product = require("./models/Products");
 const fs = require("fs");

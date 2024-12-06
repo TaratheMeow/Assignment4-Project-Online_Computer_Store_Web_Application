@@ -53,6 +53,9 @@ function Dashboard() {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("cartItems");
+    setCartItems([]);
+
     logout();
     navigate("/");
   };

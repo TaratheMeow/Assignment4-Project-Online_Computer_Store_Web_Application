@@ -10,7 +10,6 @@ module.exports = function (req, res, next) {
   }
 
   try {
-    // 验证 token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     // get user info from decoded.user
     req.user = decoded.user;
